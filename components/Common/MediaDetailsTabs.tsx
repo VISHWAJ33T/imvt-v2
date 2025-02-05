@@ -3,7 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { shimmerBlurDataUrl } from '@/utils/blurDataUrl'
 import { handleDownload } from '@/utils/downloadImage'
-import {  Star, Users } from 'lucide-react'
+import { Star, Users } from 'lucide-react'
+
 import { singleMediaDataType } from '@/types/mediaData'
 import { Button } from '@/components/ui/button'
 import {
@@ -30,7 +31,10 @@ export default function MediaDetailsTabs({
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth
-      let newBasis = width > 600 ? 100 / Math.floor(width / 200) : 100 / Math.floor(width / 100);
+      let newBasis =
+        width > 600
+          ? 100 / Math.floor(width / 200)
+          : 100 / Math.floor(width / 100)
       setBasis(`${newBasis}%`)
     }
 
@@ -46,18 +50,18 @@ export default function MediaDetailsTabs({
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_CONSUMET_API_URL}/meta/tmdb/info/${id}?type=${type}`
       )
-      return await response.json();
+      return await response.json()
     }
 
     if (type === 'movie') {
       getMediaDetails(mediaData?.id, 'movie').then((res) => {
         setMediaDetails(res)
       })
-    } else if(type === 'tv') {
+    } else if (type === 'tv') {
       getMediaDetails(mediaData?.id, 'tv').then((res) => {
         setMediaDetails(res)
       })
-    } else{
+    } else {
       setMediaDetails(mediaData)
     }
   }, [mediaData, type])
@@ -309,30 +313,32 @@ export default function MediaDetailsTabs({
         <TabsContent value='similar'>
           <div className='w-full h-full flex justify-center'>
             <div className='w-full flex flex-wrap justify-start items-center'>
-              {mediaDetails?.similar.map((post:any, index: React.Key | number) => (
-                <div
-                  key={index}
-                  style={{ flexBasis: basis }}
-                  className={`relative min-w-0 shrink-0 grow-0 basis-1/2 h-fit p-2`}
-                >
-                  <MediaThumbnailComponent
-                    link={`/${type}/${post.id}`}
-                    id={post.id}
-                    title={post.name || post.title}
-                    poster={post.image}
-                    width={200}
-                    height={300}
-                    index={index}
-                    release_date={post.release_date || post.first_air_date}
-                    type={post.title ? 'movie' : 'tv'}
+              {mediaDetails?.similar.map(
+                (post: any, index: React.Key | number) => (
+                  <div
+                    key={index}
+                    style={{ flexBasis: basis }}
+                    className={`relative min-w-0 shrink-0 grow-0 basis-1/2 h-fit p-2`}
                   >
-                    <span className='bg-yellow-500 text-white absolute top-3 left-3 z-[3] py-[2px] px-2 text-[0.8rem] rounded-3xl whitespace-nowrap flex items-center'>
-                      <Star fill='white' color='white' width={12} />
-                      &nbsp;{post.rating.toFixed(1)}
-                    </span>
-                  </MediaThumbnailComponent>
-                </div>
-              ))}
+                    <MediaThumbnailComponent
+                      link={`/${type}/${post.id}`}
+                      id={post.id}
+                      title={post.name || post.title}
+                      poster={post.image}
+                      width={200}
+                      height={300}
+                      index={index}
+                      release_date={post.release_date || post.first_air_date}
+                      type={post.title ? 'movie' : 'tv'}
+                    >
+                      <span className='bg-yellow-500 text-white absolute top-3 left-3 z-[3] py-[2px] px-2 text-[0.8rem] rounded-3xl whitespace-nowrap flex items-center'>
+                        <Star fill='white' color='white' width={12} />
+                        &nbsp;{post.rating.toFixed(1)}
+                      </span>
+                    </MediaThumbnailComponent>
+                  </div>
+                )
+              )}
             </div>
           </div>
         </TabsContent>
@@ -343,7 +349,7 @@ export default function MediaDetailsTabs({
           <div className='w-full h-full flex justify-center'>
             <div className='w-full flex flex-wrap justify-start items-center'>
               {mediaDetails?.recommendations.map(
-                (post:any, index: React.Key | number) => (
+                (post: any, index: React.Key | number) => (
                   <div
                     key={index}
                     style={{ flexBasis: basis }}

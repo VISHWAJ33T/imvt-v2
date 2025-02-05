@@ -1,15 +1,30 @@
-'use client';
+'use client'
 
-import React, { Key, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { GET_MOVIE_BY_ID, GET_STREAMING_DATA, GET_TV_BY_ID } from '@/graphql/queries/MediaPlayerData.gql';
-import { shimmerBlurDataUrl } from '@/utils/blurDataUrl';
-import { useQuery } from '@apollo/client';
-import { Button } from '@/components/ui/button';
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import MediaPlayer from '@/components/Common/MediaPlayer';
+import React, { Key, useEffect, useState } from 'react'
+import Image from 'next/image'
+import {
+  GET_MOVIE_BY_ID,
+  GET_STREAMING_DATA,
+  GET_TV_BY_ID,
+} from '@/graphql/queries/MediaPlayerData.gql'
+import { shimmerBlurDataUrl } from '@/utils/blurDataUrl'
+import { useQuery } from '@apollo/client'
+
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '@/components/ui/resizable'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import MediaPlayer from '@/components/Common/MediaPlayer'
 
 type MediaPlayerDataType = {
   release_date: string
@@ -140,7 +155,6 @@ const SingleMediaPlayer = ({
     { variables: { tmdbId } }
   )
 
-
   useEffect(() => {
     if (loading) return
 
@@ -167,12 +181,10 @@ const SingleMediaPlayer = ({
     } else {
       setmediaData(data?.getTvbyId)
       getStreamingData(id, 'tv').then((strData) => {
-        setmediaData((prev)=>({...prev, seasons: strData?.seasons}))
+        setmediaData((prev) => ({ ...prev, seasons: strData?.seasons }))
         setStreamingId(strData?.id)
         setEpisodeId(
-          strData?.seasons[seasonNumber - 1]?.episodes[
-            episodeNumber - 1
-          ]?.id
+          strData?.seasons[seasonNumber - 1]?.episodes[episodeNumber - 1]?.id
         )
       })
     }

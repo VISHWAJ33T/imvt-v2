@@ -126,28 +126,28 @@ export default function VideoPlayer({
         // }),
         artplayerPluginHlsControl({
           quality: {
-              // Show qualitys in control
-              control: true,
-              // Show qualitys in setting
-              setting: true,
-              // Get the quality name from level
-              getName: (level:any) => level.height + 'P',
-              // I18n
-              title: 'Quality',
-              auto: 'Auto',
+            // Show qualitys in control
+            control: true,
+            // Show qualitys in setting
+            setting: true,
+            // Get the quality name from level
+            getName: (level: any) => level.height + 'P',
+            // I18n
+            title: 'Quality',
+            auto: 'Auto',
           },
           audio: {
-              // Show audios in control
-              control: true,
-              // Show audios in setting
-              setting: true,
-              // Get the audio name from track
-              getName: (track:any) => track.name,
-              // I18n
-              title: 'Audio',
-              auto: 'Auto',
-          }
-      }),
+            // Show audios in control
+            control: true,
+            // Show audios in setting
+            setting: true,
+            // Get the audio name from track
+            getName: (track: any) => track.name,
+            // I18n
+            title: 'Audio',
+            auto: 'Auto',
+          },
+        }),
         artplayerPluginVttThumbnail({
           // vtt: "./sprite.vtt",
           vtt: thumbnail || null,
