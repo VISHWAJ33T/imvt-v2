@@ -58,7 +58,7 @@ const SingleMediaPage = ({
     remove: 'watchlist',
   }
 
-  if (loading || !mediaData) return <SingleMediaSkeleton />
+  if (loading) return <SingleMediaSkeleton />
 
   return (
     <>

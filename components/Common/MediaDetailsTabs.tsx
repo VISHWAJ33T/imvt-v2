@@ -1,10 +1,9 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { shimmerBlurDataUrl } from '@/utils/blurDataUrl'
 import { handleDownload } from '@/utils/downloadImage'
-import { PlayCircle, Star, Users } from 'lucide-react'
-
+import {  Star, Users } from 'lucide-react'
 import { singleMediaDataType } from '@/types/mediaData'
 import { Button } from '@/components/ui/button'
 import {
@@ -25,9 +24,10 @@ export default function MediaDetailsTabs({
   mediaData: singleMediaDataType
   type: any
 }) {
-  const [basis, setBasis] = React.useState('50%')
+  const [basis, setBasis] = useState('50%')
+  const [mediaDetails, setMediaDetails] = useState<any>()
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth
       let newBasis = width > 600 ? 100 / Math.floor(width / 200) : 100 / Math.floor(width / 100);
@@ -41,6 +41,27 @@ export default function MediaDetailsTabs({
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
+  useEffect(() => {
+    const getMediaDetails = async (id: string, type: 'movie' | 'tv') => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_CONSUMET_API_URL}/meta/tmdb/info/${id}?type=${type}`
+      )
+      return await response.json();
+    }
+
+    if (type === 'movie') {
+      getMediaDetails(mediaData?.id, 'movie').then((res) => {
+        setMediaDetails(res)
+      })
+    } else if(type === 'tv') {
+      getMediaDetails(mediaData?.id, 'tv').then((res) => {
+        setMediaDetails(res)
+      })
+    } else{
+      setMediaDetails(mediaData)
+    }
+  }, [mediaData, type])
+
   return (
     <Tabs defaultValue='casts' className='w-[95%] sm:w-[90%] dark'>
       <TabsList className=' w-full flex justify-start overflow-scroll'>
@@ -51,10 +72,10 @@ export default function MediaDetailsTabs({
         {mediaData && Object.keys(mediaData.Images).length > 0 && (
           <TabsTrigger value='images'>Images</TabsTrigger>
         )}
-        {mediaData?.similar && (
+        {mediaDetails?.similar && (
           <TabsTrigger value='similar'>Similar</TabsTrigger>
         )}
-        {mediaData?.recommendations && (
+        {mediaDetails?.recommendations && (
           <TabsTrigger value='recommendations'>Recommendations</TabsTrigger>
         )}
         {mediaData?.reviews && mediaData?.reviews.length > 0 && (
@@ -284,11 +305,11 @@ export default function MediaDetailsTabs({
         </div>
       </TabsContent>
 
-      {mediaData?.similar && (
+      {mediaDetails?.similar && (
         <TabsContent value='similar'>
           <div className='w-full h-full flex justify-center'>
             <div className='w-full flex flex-wrap justify-start items-center'>
-              {mediaData?.similar.map((post, index: React.Key | number) => (
+              {mediaDetails?.similar.map((post:any, index: React.Key | number) => (
                 <div
                   key={index}
                   style={{ flexBasis: basis }}
@@ -317,12 +338,12 @@ export default function MediaDetailsTabs({
         </TabsContent>
       )}
 
-      {mediaData?.recommendations && (
+      {mediaDetails?.recommendations && (
         <TabsContent value='recommendations'>
           <div className='w-full h-full flex justify-center'>
             <div className='w-full flex flex-wrap justify-start items-center'>
-              {mediaData?.recommendations.map(
-                (post, index: React.Key | number) => (
+              {mediaDetails?.recommendations.map(
+                (post:any, index: React.Key | number) => (
                   <div
                     key={index}
                     style={{ flexBasis: basis }}

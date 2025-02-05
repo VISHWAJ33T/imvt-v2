@@ -1,30 +1,15 @@
-'use client'
+'use client';
 
-import React, { Key, useEffect, useState } from 'react'
-import Image from 'next/image'
-import {
-  GET_MOVIE_BY_ID,
-  GET_STREAMING_DATA,
-  GET_TV_BY_ID,
-} from '@/graphql/queries/MediaPlayerData.gql'
-import { shimmerBlurDataUrl } from '@/utils/blurDataUrl'
-import { gql, useQuery } from '@apollo/client'
-
-import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from '@/components/ui/resizable'
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
-import MediaPlayer from '@/components/Common/MediaPlayer'
+import React, { Key, useEffect, useState } from 'react';
+import Image from 'next/image';
+import { GET_MOVIE_BY_ID, GET_STREAMING_DATA, GET_TV_BY_ID } from '@/graphql/queries/MediaPlayerData.gql';
+import { shimmerBlurDataUrl } from '@/utils/blurDataUrl';
+import { useQuery } from '@apollo/client';
+import { Button } from '@/components/ui/button';
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import MediaPlayer from '@/components/Common/MediaPlayer';
 
 type MediaPlayerDataType = {
   release_date: string
@@ -155,27 +140,41 @@ const SingleMediaPlayer = ({
     { variables: { tmdbId } }
   )
 
-  // console.log(data);
 
   useEffect(() => {
     if (loading) return
+
+    const getStreamingData = async (id: string, type: 'movie' | 'tv') => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_CONSUMET_API_URL}/meta/tmdb/info/${id}?type=${type}`
+      )
+      const data = await response.json()
+      return data
+    }
+
     if (type === 'movie') {
-      setmediaData({
-        ...data?.getMoviebyId,
-        number_of_seasons: 0,
-        number_of_episodes: 0,
-        seasons: [],
+      getStreamingData(id, 'movie').then((strData) => {
+        setmediaData({
+          ...data?.getMoviebyId,
+          number_of_seasons: 0,
+          number_of_episodes: 0,
+          seasons: [],
+        })
+        setStreamingId(strData?.id)
+        const array = strData?.id?.split('-')
+        setEpisodeId(array?.length > 1 ? array[array.length - 1] : '')
       })
-      setStreamingId(data?.getMoviebyId?.streamingId)
-      const array = data?.getMoviebyId?.streamingId?.split('-')
-      setEpisodeId(array?.length > 1 ? array[array.length - 1] : '')
     } else {
       setmediaData(data?.getTvbyId)
-      setStreamingId(data?.getTvbyId?.streamingId)
-      setEpisodeId(
-        data?.getTvbyId?.seasons[seasonNumber - 1]?.episodes[episodeNumber - 1]
-          ?.id
-      )
+      getStreamingData(id, 'tv').then((strData) => {
+        setmediaData((prev)=>({...prev, seasons: strData?.seasons}))
+        setStreamingId(strData?.id)
+        setEpisodeId(
+          strData?.seasons[seasonNumber - 1]?.episodes[
+            episodeNumber - 1
+          ]?.id
+        )
+      })
     }
     // setLoading(loading);
   }, [data, loading, type, episodeNumber, seasonNumber])
