@@ -1,6 +1,6 @@
 import React, { RefObject, use, useEffect, useRef, useState } from 'react'
 import Artplayer from 'artplayer'
-import artplayerPluginHlsQuality from 'artplayer-plugin-hls-quality'
+import artplayerPluginHlsControl from 'artplayer-plugin-hls-control'
 import artplayerPluginVttThumbnail from 'artplayer-plugin-thumbnail'
 import Hls from 'hls.js'
 
@@ -117,13 +117,37 @@ export default function VideoPlayer({
       autoSize: true,
       setting: true,
       plugins: [
-        artplayerPluginHlsQuality({
-          control: false,
-          setting: true,
-          getResolution: (level) => level.height + 'P',
-          title: 'Auto Quality',
-          auto: 'Auto',
-        }),
+        // artplayerPluginHlsQuality({
+        //   control: false,
+        //   setting: true,
+        //   getResolution: (level) => level.height + 'P',
+        //   title: 'Auto Quality',
+        //   auto: 'Auto',
+        // }),
+        artplayerPluginHlsControl({
+          quality: {
+              // Show qualitys in control
+              control: true,
+              // Show qualitys in setting
+              setting: true,
+              // Get the quality name from level
+              getName: (level:any) => level.height + 'P',
+              // I18n
+              title: 'Quality',
+              auto: 'Auto',
+          },
+          audio: {
+              // Show audios in control
+              control: true,
+              // Show audios in setting
+              setting: true,
+              // Get the audio name from track
+              getName: (track:any) => track.name,
+              // I18n
+              title: 'Audio',
+              auto: 'Auto',
+          }
+      }),
         artplayerPluginVttThumbnail({
           // vtt: "./sprite.vtt",
           vtt: thumbnail || null,
