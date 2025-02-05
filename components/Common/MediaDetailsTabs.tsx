@@ -30,11 +30,7 @@ export default function MediaDetailsTabs({
   React.useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth
-      if (width > 600) {
-        var newBasis = 100 / Math.floor(width / 200)
-      } else {
-        var newBasis = 100 / Math.floor(width / 100)
-      }
+      let newBasis = width > 600 ? 100 / Math.floor(width / 200) : 100 / Math.floor(width / 100);
       setBasis(`${newBasis}%`)
     }
 
