@@ -19,16 +19,14 @@ import MediaDetailsTabs from '@/components/Common/MediaDetailsTabs'
 
 import 'react-loading-skeleton/dist/skeleton.css'
 
-import { set } from 'react-hook-form'
-
 const SingleMediaPage = ({
   mediaData,
   loading,
   type,
 }: {
   mediaData: singleMediaDataType
-  loading: any
-  type: any
+  loading: boolean
+  type: string
 }) => {
   const ReleaseDate = new Date(
     mediaData?.release_date || mediaData?.first_air_date
