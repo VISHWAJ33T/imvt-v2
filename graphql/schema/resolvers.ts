@@ -83,17 +83,6 @@ export const resolvers = {
         const genre = MovieGenres.find((genre) => genre.id === id)
         return genre ? genre.name : null
       }),
-    streamingId: async (movie: { id: any }) => {
-      try {
-        return (
-          await axios.get(
-            `${process.env.NEXT_PUBLIC_CONSUMET_API_URL}/meta/tmdb/info/${movie.id}?type=movie`
-          )
-        ).data?.id
-      } catch (error) {
-        return null
-      }
-    },
   },
   TV: {
     poster_path: (tv: { poster_path: any }) => {
@@ -115,17 +104,6 @@ export const resolvers = {
         const genre = TvGenres.find((genre) => genre.id === id)
         return genre ? genre.name : null
       }),
-    streamingId: async (tv: { id: any }) => {
-      try {
-        return (
-          await axios.get(
-            `${process.env.NEXT_PUBLIC_CONSUMET_API_URL}/meta/tmdb/info/${tv.id}?type=tv`
-          )
-        ).data?.id
-      } catch (error) {
-        return ''
-      }
-    },
   },
   SingleMovie: {
     poster_path: (movie: { poster_path: any }) => {
@@ -161,42 +139,9 @@ export const resolvers = {
     Images: async (movie: { id: any }) => {
       return (
         await axios.get(
-          `https://api.themoviedb.org/3/movie/${movie.id}/images?api_key=${process.env.TMDB_KEY}`
+          `${process.env.TMDB_BASE_URL}/movie/${movie.id}/images?api_key=${process.env.TMDB_KEY}`
         )
       ).data
-    },
-    streamingId: async (movie: { id: any }) => {
-      try {
-        return (
-          await axios.get(
-            `${process.env.NEXT_PUBLIC_CONSUMET_API_URL}/meta/tmdb/info/${movie.id}?type=movie`
-          )
-        ).data?.id
-      } catch (error) {
-        return null
-      }
-    },
-    recommendations: async (movie: { id: any }) => {
-      try {
-        return (
-          await axios.get(
-            `${process.env.NEXT_PUBLIC_CONSUMET_API_URL}/meta/tmdb/info/${movie.id}?type=movie`
-          )
-        ).data?.recommendations
-      } catch (error) {
-        return null
-      }
-    },
-    similar: async (movie: { id: any }) => {
-      try {
-        return (
-          await axios.get(
-            `${process.env.NEXT_PUBLIC_CONSUMET_API_URL}/meta/tmdb/info/${movie.id}?type=movie`
-          )
-        ).data?.similar
-      } catch (error) {
-        return null
-      }
     },
   },
   SingleTV: {
@@ -240,64 +185,9 @@ export const resolvers = {
     Images: async (tv: { id: any }) => {
       return (
         await axios.get(
-          `https://api.themoviedb.org/3/tv/${tv.id}/images?api_key=${process.env.TMDB_KEY}`
+          `${process.env.TMDB_BASE_URL}/tv/${tv.id}/images?api_key=${process.env.TMDB_KEY}`
         )
       ).data
-    },
-    seasons: async (tv: { id: any }) => {
-      try {
-        return (
-          await axios.get(
-            `${process.env.NEXT_PUBLIC_CONSUMET_API_URL}/meta/tmdb/info/${tv.id}?type=tv`
-          )
-        ).data?.seasons
-      } catch (error) {
-        return []
-      }
-    },
-    trailer: async (tv: { id: any }) => {
-      try {
-        return (
-          await axios.get(
-            `${process.env.NEXT_PUBLIC_CONSUMET_API_URL}/meta/tmdb/info/${tv.id}?type=tv`
-          )
-        ).data?.trailer
-      } catch (error) {
-        return ''
-      }
-    },
-    streamingId: async (tv: { id: any }) => {
-      try {
-        return (
-          await axios.get(
-            `${process.env.NEXT_PUBLIC_CONSUMET_API_URL}/meta/tmdb/info/${tv.id}?type=tv`
-          )
-        ).data?.id
-      } catch (error) {
-        return ''
-      }
-    },
-    similar: async (tv: { id: any }) => {
-      try {
-        return (
-          await axios.get(
-            `${process.env.NEXT_PUBLIC_CONSUMET_API_URL}/meta/tmdb/info/${tv.id}?type=tv`
-          )
-        ).data?.similar
-      } catch (error) {
-        return []
-      }
-    },
-    recommendations: async (tv: { id: any }) => {
-      try {
-        return (
-          await axios.get(
-            `${process.env.NEXT_PUBLIC_CONSUMET_API_URL}/meta/tmdb/info/${tv.id}?type=tv`
-          )
-        ).data?.recommendations
-      } catch (error) {
-        return []
-      }
     },
   },
   SingleAnime: {
