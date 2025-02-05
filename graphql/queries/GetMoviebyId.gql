@@ -55,7 +55,6 @@ query GetMoviebyId($tmdbId: ID!) {
         id
       }
     }
-    streamingId
     casts {
       adult
       id
@@ -93,22 +92,6 @@ query GetMoviebyId($tmdbId: ID!) {
         vote_average
         vote_count
       }
-    }
-    recommendations {
-      id
-      title
-      image
-      type
-      rating
-      releaseDate
-    }
-    similar {
-      id
-      title
-      image
-      type
-      rating
-      releaseDate
     }
     reviews {
       author

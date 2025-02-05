@@ -41,7 +41,6 @@ query DiscoverMedia(
         video
         vote_average
         vote_count
-        streamingId
       }
       ... on TV {
         adult
@@ -59,7 +58,6 @@ query DiscoverMedia(
         vote_average
         vote_count
         origin_country
-        streamingId
       }
       ... on People {
         adult
@@ -89,7 +87,6 @@ query DiscoverMedia(
             video
             vote_average
             vote_count
-            streamingId
           }
           ... on TV {
             adult
@@ -107,7 +104,6 @@ query DiscoverMedia(
             vote_average
             vote_count
             origin_country
-            streamingId
           }
           ... on People {
             adult

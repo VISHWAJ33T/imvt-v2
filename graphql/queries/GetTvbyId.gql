@@ -18,7 +18,6 @@ query GetTvbyId($tmdbId: ID!) {
       iso_639_1
       name
     }
-    streamingId
     casts {
       adult
       id
@@ -57,22 +56,6 @@ query GetTvbyId($tmdbId: ID!) {
         vote_count
       }
     }
-    recommendations {
-      id
-      title
-      image
-      type
-      rating
-      releaseDate
-    }
-    similar {
-      id
-      title
-      image
-      type
-      rating
-      releaseDate
-    }
     reviews {
       author
       content
@@ -87,32 +70,7 @@ query GetTvbyId($tmdbId: ID!) {
         rating
       }
     }
-    trailer {
-      id
-      url
-    }
     type
-    seasons {
-      season
-      image {
-        mobile
-        hd
-      }
-      episodes {
-        id
-        title
-        episode
-        Season
-        releaseDate
-        description
-        url
-        img {
-          mobile
-          hd
-        }
-      }
-      isReleased
-    }
     last_air_date
     last_episode_to_air {
       id

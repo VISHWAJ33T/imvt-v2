@@ -1,7 +1,6 @@
 query GET_MOVIE_BY_ID($tmdbId: ID!) {
   getMoviebyId(tmdbId: $tmdbId) {
     backdrop_path
-    streamingId
     title
     overview
     poster_path
@@ -17,7 +16,6 @@ query GET_MOVIE_BY_ID($tmdbId: ID!) {
 query GET_TV_BY_ID($tmdbId: ID!) {
   getTvbyId(tmdbId: $tmdbId) {
     backdrop_path
-    streamingId
     poster_path
     overview
     first_air_date
@@ -26,27 +24,6 @@ query GET_TV_BY_ID($tmdbId: ID!) {
     Images {
       logos {
         file_path
-      }
-    }
-    seasons {
-      isReleased
-      season
-      image {
-        hd
-        mobile
-      }
-      episodes {
-        Season
-        description
-        episode
-        id
-        releaseDate
-        title
-        url
-        img {
-          hd
-          mobile
-        }
       }
     }
   }
