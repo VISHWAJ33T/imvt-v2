@@ -139,7 +139,6 @@ export type Movie = {
   popularity?: Maybe<Scalars['Float']['output']>
   poster_path?: Maybe<Scalars['String']['output']>
   release_date?: Maybe<Scalars['String']['output']>
-  streamingId?: Maybe<Scalars['String']['output']>
   title?: Maybe<Scalars['String']['output']>
   video?: Maybe<Scalars['Boolean']['output']>
   vote_average?: Maybe<Scalars['Float']['output']>
@@ -234,7 +233,6 @@ export type PeopleCredits = {
   popularity?: Maybe<Scalars['Float']['output']>
   poster_path?: Maybe<Scalars['String']['output']>
   profile_path?: Maybe<Scalars['String']['output']>
-  streamingId?: Maybe<Scalars['String']['output']>
   title?: Maybe<Scalars['String']['output']>
   vote_average?: Maybe<Scalars['Float']['output']>
   vote_count?: Maybe<Scalars['Int']['output']>
@@ -430,15 +428,12 @@ export type SingleMovie = {
   poster_path?: Maybe<Scalars['String']['output']>
   production_companies?: Maybe<Array<Maybe<Company>>>
   production_countries?: Maybe<Array<Maybe<Country>>>
-  recommendations?: Maybe<Array<Maybe<MediaRecommendations>>>
   release_date?: Maybe<Scalars['String']['output']>
   revenue?: Maybe<Scalars['Int']['output']>
   reviews?: Maybe<Array<Maybe<Review>>>
   runtime?: Maybe<Scalars['Int']['output']>
-  similar?: Maybe<Array<Maybe<MediaRecommendations>>>
   spoken_languages?: Maybe<Array<Maybe<Language>>>
   status?: Maybe<Scalars['String']['output']>
-  streamingId?: Maybe<Scalars['String']['output']>
   tagline?: Maybe<Scalars['String']['output']>
   title?: Maybe<Scalars['String']['output']>
   video?: Maybe<Scalars['Boolean']['output']>
@@ -478,15 +473,10 @@ export type SingleTv = {
   poster_path?: Maybe<Scalars['String']['output']>
   production_companies?: Maybe<Array<Maybe<Company>>>
   production_countries?: Maybe<Array<Maybe<Country>>>
-  recommendations?: Maybe<Array<Maybe<MediaRecommendations>>>
   reviews?: Maybe<Array<Maybe<Review>>>
-  seasons?: Maybe<Array<Maybe<Season>>>
-  similar?: Maybe<Array<Maybe<MediaRecommendations>>>
   spoken_languages?: Maybe<Array<Maybe<Language>>>
   status?: Maybe<Scalars['String']['output']>
-  streamingId?: Maybe<Scalars['String']['output']>
   tagline?: Maybe<Scalars['String']['output']>
-  trailer?: Maybe<Trailer>
   type?: Maybe<Scalars['String']['output']>
   videos?: Maybe<Video>
   vote_average?: Maybe<Scalars['Float']['output']>
@@ -508,7 +498,6 @@ export type Tv = {
   overview?: Maybe<Scalars['String']['output']>
   popularity?: Maybe<Scalars['Float']['output']>
   poster_path?: Maybe<Scalars['String']['output']>
-  streamingId?: Maybe<Scalars['String']['output']>
   vote_average?: Maybe<Scalars['Float']['output']>
   vote_count?: Maybe<Scalars['Int']['output']>
 }
@@ -583,7 +572,6 @@ export type DiscoverMediaQuery = {
           video?: boolean | null
           vote_average?: number | null
           vote_count?: number | null
-          streamingId?: string | null
         }
       | {
           __typename?: 'People'
@@ -615,7 +603,6 @@ export type DiscoverMediaQuery = {
                 video?: boolean | null
                 vote_average?: number | null
                 vote_count?: number | null
-                streamingId?: string | null
               }
             | {
                 __typename?: 'People'
@@ -647,7 +634,6 @@ export type DiscoverMediaQuery = {
                 vote_average?: number | null
                 vote_count?: number | null
                 origin_country?: Array<string | null> | null
-                streamingId?: string | null
               }
             | null
           > | null
@@ -669,7 +655,6 @@ export type DiscoverMediaQuery = {
           vote_average?: number | null
           vote_count?: number | null
           origin_country?: Array<string | null> | null
-          streamingId?: string | null
         }
       | null
     > | null
@@ -944,7 +929,6 @@ export type GetMoviebyIdQuery = {
     video?: boolean | null
     vote_average?: number | null
     vote_count?: number | null
-    streamingId?: string | null
     belongs_to_collection?: {
       __typename?: 'Collection'
       id?: string | null
@@ -1028,24 +1012,6 @@ export type GetMoviebyIdQuery = {
         vote_count?: number | null
       } | null> | null
     } | null
-    recommendations?: Array<{
-      __typename?: 'MediaRecommendations'
-      id?: string | null
-      title?: string | null
-      image?: string | null
-      type?: string | null
-      rating?: number | null
-      releaseDate?: string | null
-    } | null> | null
-    similar?: Array<{
-      __typename?: 'MediaRecommendations'
-      id?: string | null
-      title?: string | null
-      image?: string | null
-      type?: string | null
-      rating?: number | null
-      releaseDate?: string | null
-    } | null> | null
     reviews?: Array<{
       __typename?: 'Review'
       author?: string | null
@@ -1608,7 +1574,6 @@ export type GetTvbyIdQuery = {
     name?: string | null
     vote_average?: number | null
     vote_count?: number | null
-    streamingId?: string | null
     type?: string | null
     last_air_date?: string | null
     languages?: Array<string | null> | null
@@ -1662,24 +1627,6 @@ export type GetTvbyIdQuery = {
         vote_count?: number | null
       } | null> | null
     } | null
-    recommendations?: Array<{
-      __typename?: 'MediaRecommendations'
-      id?: string | null
-      title?: string | null
-      image?: string | null
-      type?: string | null
-      rating?: number | null
-      releaseDate?: string | null
-    } | null> | null
-    similar?: Array<{
-      __typename?: 'MediaRecommendations'
-      id?: string | null
-      title?: string | null
-      image?: string | null
-      type?: string | null
-      rating?: number | null
-      releaseDate?: string | null
-    } | null> | null
     reviews?: Array<{
       __typename?: 'Review'
       author?: string | null
@@ -1695,36 +1642,6 @@ export type GetTvbyIdQuery = {
         avatar_path?: string | null
         rating?: number | null
       } | null
-    } | null> | null
-    trailer?: {
-      __typename?: 'Trailer'
-      id?: string | null
-      url?: string | null
-    } | null
-    seasons?: Array<{
-      __typename?: 'Season'
-      season?: number | null
-      isReleased?: boolean | null
-      image?: {
-        __typename?: 'SeasonImage'
-        mobile?: string | null
-        hd?: string | null
-      } | null
-      episodes?: Array<{
-        __typename?: 'Episode'
-        id?: string | null
-        title?: string | null
-        episode?: number | null
-        Season?: number | null
-        releaseDate?: string | null
-        description?: string | null
-        url?: string | null
-        img?: {
-          __typename?: 'SeasonImage'
-          mobile?: string | null
-          hd?: string | null
-        } | null
-      } | null> | null
     } | null> | null
     last_episode_to_air?: {
       __typename?: 'LastEpisodeToAir'
@@ -1991,7 +1908,6 @@ export const DiscoverMediaDocument = gql`
           video
           vote_average
           vote_count
-          streamingId
         }
         ... on TV {
           adult
@@ -2009,7 +1925,6 @@ export const DiscoverMediaDocument = gql`
           vote_average
           vote_count
           origin_country
-          streamingId
         }
         ... on People {
           adult
@@ -2039,7 +1954,6 @@ export const DiscoverMediaDocument = gql`
               video
               vote_average
               vote_count
-              streamingId
             }
             ... on TV {
               adult
@@ -2057,7 +1971,6 @@ export const DiscoverMediaDocument = gql`
               vote_average
               vote_count
               origin_country
-              streamingId
             }
             ... on People {
               adult
@@ -2549,7 +2462,6 @@ export const GetMoviebyIdDocument = gql`
           id
         }
       }
-      streamingId
       casts {
         adult
         id
@@ -2587,22 +2499,6 @@ export const GetMoviebyIdDocument = gql`
           vote_average
           vote_count
         }
-      }
-      recommendations {
-        id
-        title
-        image
-        type
-        rating
-        releaseDate
-      }
-      similar {
-        id
-        title
-        image
-        type
-        rating
-        releaseDate
       }
       reviews {
         author
@@ -3479,7 +3375,6 @@ export const GetTvbyIdDocument = gql`
         iso_639_1
         name
       }
-      streamingId
       casts {
         adult
         id
@@ -3518,22 +3413,6 @@ export const GetTvbyIdDocument = gql`
           vote_count
         }
       }
-      recommendations {
-        id
-        title
-        image
-        type
-        rating
-        releaseDate
-      }
-      similar {
-        id
-        title
-        image
-        type
-        rating
-        releaseDate
-      }
       reviews {
         author
         content
@@ -3547,10 +3426,6 @@ export const GetTvbyIdDocument = gql`
           avatar_path
           rating
         }
-      }
-      trailer {
-        id
-        url
       }
       type
       seasons {

@@ -31,8 +31,6 @@ interface mediaPeopleData extends mediaData {
 interface singleMediaDataType extends mediaData {
   casts: mediaPeopleData[]
   genres: string[]
-  recommendations: mediaData[]
-  similar: mediaData[]
   original_language?: string
   reviews: {
     author: string
@@ -95,7 +93,6 @@ interface singleMediaDataType extends mediaData {
     poster_path: string
     season_number: number
   }[]
-  streamingId: string
 }
 
 interface iptvDataType {

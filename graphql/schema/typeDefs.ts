@@ -165,7 +165,6 @@ type Movie {
   popularity: Float
   vote_average: Float
   vote_count: Int
-  streamingId: String
 }
 
 type TV {
@@ -184,7 +183,6 @@ type TV {
   popularity: Float
   vote_average: Float
   vote_count: Int
-  streamingId: String
 }
 type AnimeTitle{
   romaji: String
@@ -225,8 +223,6 @@ type SingleMovie {
   casts: [PeopleCredits]
   videos: Video
   Images: Images
-  similar: [MediaRecommendations]
-  recommendations: [MediaRecommendations]
   reviews: [Review]
   spoken_languages: [Language]
   status: String
@@ -244,7 +240,6 @@ type SingleMovie {
   popularity: Float
   vote_average: Float
   vote_count: Int
-  streamingId: String
 }
 
 type SingleTV {
@@ -264,14 +259,11 @@ type SingleTV {
   created_by: [CreatedBy]
   number_of_seasons: Float
   number_of_episodes: Float
-  trailer: Trailer
   tagline: String
   homepage: String
   casts: [PeopleCredits]
   videos: Video
   Images: Images
-  similar: [MediaRecommendations]
-  recommendations: [MediaRecommendations]
   reviews: [Review]
   spoken_languages: [Language]
   status: String
@@ -289,7 +281,6 @@ type SingleTV {
   popularity: Float
   vote_average: Float
   vote_count: Int
-  streamingId: String
 }
 type AnimeTrailer{
     id: String,
@@ -414,7 +405,6 @@ type PeopleCredits {
   popularity: Float
   vote_average: Float
   vote_count: Int
-  streamingId: String
 }
 
 
