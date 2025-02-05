@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import Artplayer from 'artplayer'
-import artplayerPluginHlsQuality from 'artplayer-plugin-hls-quality'
+import artplayerPluginHlsControl from 'artplayer-plugin-hls-control'
 import { type Option } from 'artplayer/types/option'
 import Hls from 'hls.js'
 
@@ -41,12 +41,29 @@ export default function IptvPlayer(
       autoSize: true,
       setting: true,
       plugins: [
-        artplayerPluginHlsQuality({
-          control: false,
-          setting: true,
-          getResolution: (level) => level.height + 'P',
-          title: 'Quality',
-          auto: 'Auto',
+        artplayerPluginHlsControl({
+          quality: {
+            // Show qualitys in control
+            control: true,
+            // Show qualitys in setting
+            setting: true,
+            // Get the quality name from level
+            getName: (level: any) => level.height + 'P',
+            // I18n
+            title: 'Quality',
+            auto: 'Auto',
+          },
+          audio: {
+            // Show audios in control
+            control: true,
+            // Show audios in setting
+            setting: true,
+            // Get the audio name from track
+            getName: (track: any) => track.name,
+            // I18n
+            title: 'Audio',
+            auto: 'Auto',
+          },
         }),
       ],
       volume: 1,
