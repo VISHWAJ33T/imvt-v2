@@ -1,4 +1,4 @@
-import React, { RefObject, use, useEffect, useRef, useState } from 'react'
+import { useEffect } from 'react'
 import Artplayer from 'artplayer'
 import artplayerPluginHlsControl from 'artplayer-plugin-hls-control'
 import artplayerPluginVttThumbnail from 'artplayer-plugin-thumbnail'

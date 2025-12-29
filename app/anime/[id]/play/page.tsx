@@ -9,7 +9,6 @@ import {
 } from '@/graphql/queries/GetAnime.gql'
 import { shimmerBlurDataUrl } from '@/utils/blurDataUrl'
 import { useQuery } from '@apollo/client'
-
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -381,7 +380,7 @@ const AnimePlayerPage = () => {
                       </Button>
                       {/* Not Working */}
                       {/* <Button onClick={(e) => { setServerNumber(4); setIsAnimePlayer(true) }} variant={isAnimePlayer && serverNumber === 4 ? "default" : "secondary"} className="w-28">Server 3</Button>
-                                            <Button onClick={(e) => { setServerNumber(8); setIsAnimePlayer(true) }} variant={isAnimePlayer && serverNumber === 8 ? "default" : "secondary"} className="w-28">Server 4</Button> */}
+                       <Button onClick={(e) => { setServerNumber(8); setIsAnimePlayer(true) }} variant={isAnimePlayer && serverNumber === 8 ? "default" : "secondary"} className="w-28">Server 4</Button> */}
                     </div>
                   </div>
                   <div className='flex sm:flex-row flex-col items-start justify-center gap-3'>
